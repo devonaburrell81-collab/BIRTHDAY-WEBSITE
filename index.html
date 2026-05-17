@@ -1,0 +1,311 @@
+index.html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Birthday Gift 💖</title>
+
+<style>
+body {
+  font-family: Arial;
+  text-align: center;
+  background: linear-gradient(to right, #ff9ecf, #ffc0cb);
+  margin: 0;
+  overflow-x: hidden;
+}
+
+h1 { margin-top: 20px; }
+
+button {
+  padding: 12px;
+  margin: 8px;
+  border: none;
+  border-radius: 10px;
+  background: hotpink;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 15px;
+  max-width: 700px;
+}
+
+.section { display: none; }
+.active { display: block; }
+
+/* REASONS */
+.reasonCard {
+  background: white;
+  margin: 10px auto;
+  padding: 15px;
+  border-radius: 10px;
+  max-width: 500px;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: 0.3s;
+}
+.reasonCard.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ENVELOPES */
+.envelope {
+  background: white;
+  margin: 10px auto;
+  padding: 15px;
+  border-radius: 12px;
+  cursor: pointer;
+  max-width: 450px;
+}
+
+/* CONFETTI */
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  top: -10px;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to { transform: translateY(100vh) rotate(360deg); }
+}
+
+/* BALLOONS */
+.balloon {
+  position: fixed;
+  bottom: -100px;
+  font-size: 30px;
+  animation: rise 6s linear forwards;
+}
+
+@keyframes rise {
+  to { transform: translateY(-120vh); }
+}
+</style>
+</head>
+
+<body>
+
+<h1>🎉 Happy Birthday Auntie Nas 💖</h1>
+
+<button onclick="start()">🎁 Open Your Gift</button>
+
+<div id="menu" style="display:none;">
+  <button onclick="show('letter')">💌 Letter</button>
+  <button onclick="show('reasons')">🎂 35 Reasons</button>
+  <button onclick="show('envelopes')">✉️ Open When</button>
+</div>
+
+<!-- LETTER -->
+<div id="letter" class="section">
+  <div class="card" onclick="openLetter()">
+    <h2>✉️ Click to Open Letter</h2>
+  </div>
+
+  <div id="letterContent" class="card" style="display:none;">
+    <div id="typedLetter"></div>
+  </div>
+
+  <button onclick="back()">⬅ Back</button>
+</div>
+
+<!-- REASONS -->
+<div id="reasons" class="section">
+  <div class="card">
+    <button onclick="showReasons()">🎂 Reveal 35 Reasons</button>
+    <div id="reasonBox"></div>
+  </div>
+  <button onclick="back()">⬅ Back</button>
+</div>
+
+<!-- ENVELOPES -->
+<div id="envelopes" class="section">
+
+  <div class="envelope" onclick="openEnv(0)">🌧️ Open when sad</div>
+  <div class="envelope" onclick="openEnv(1)">😔 Open when stressed</div>
+  <div class="envelope" onclick="openEnv(2)">🌙 Open when you miss me</div>
+  <div class="envelope" onclick="openEnv(3)">💖 Open when you need love</div>
+  <div class="envelope" onclick="openEnv(4)">🫂 Open when alone</div>
+  <div class="envelope" onclick="openEnv(5)">💪 Open when weak</div>
+  <div class="envelope" onclick="openEnv(6)">🌈 Open when overwhelmed</div>
+  <div class="envelope" onclick="openEnv(7)">🌸 Open when you need peace</div>
+
+  <div id="envBox" class="card" style="display:none;"></div>
+
+  <button onclick="back()">⬅ Back</button>
+</div>
+
+<script>
+
+/* START */
+function start(){
+  document.querySelector("button").style.display="none";
+  menu.style.display="block";
+  confetti();
+  balloons();
+}
+
+/* NAV */
+function show(id){
+  menu.style.display="none";
+  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+
+function back(){
+  menu.style.display="block";
+  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+}
+
+/* LETTER */
+function openLetter(){
+  let content=document.getElementById("letterContent");
+  let typed=document.getElementById("typedLetter");
+
+  content.style.display="block";
+
+  let text = `Dear Nas,
+
+I’ve never written a formal letter to you before but I feel like as the time progresses, and we get older and more mature it can lead to this!
+
+So I’d like to start off by saying 
+Happy 35th birthday! 🎉💖
+
+May the Dear Lord watch over you with grace🙏
+
+I want to say how great of a person you are and how much you mean to me🫶🏼🫶🏼. At times I realize that you’re not just my aunt, you’re someone I can laugh with, talk to, and always count on🫂. I really appreciate everything you do for me, even the little things that might not seem like a big deal but mean so much💕
+
+You always bring such good energy, and being around you makes everything better👭.
+
+I’m really lucky to have you in my life💖.
+
+I love you always aunty Nas💖
+
+Yours truly,
+Devona`;
+
+  typed.innerHTML="";
+  let i=0;
+  function type(){
+    if(i<text.length){
+      typed.innerHTML += text[i]==="\n"?"<br>":text[i];
+      i++;
+      setTimeout(type,12);
+    }
+  }
+  type();
+}
+
+/* 35 REASONS */
+const reasons=[
+"You always check on me",
+"You make me feel safe",
+"You always listen",
+"You support me",
+"You care deeply",
+"You have a good heart",
+"You’re strong",
+"You make me laugh",
+"You turn bad days better",
+"You never give up",
+"You’re protective",
+"You’re honest",
+"You show up",
+"You’ve been through a lot",
+"You make family feel like family",
+"You’re fun",
+"You care even when I don’t say anything",
+"You have a big heart",
+"You make things special",
+"You are trusted",
+"You fix things",
+"You bring comfort",
+"You matter to me",
+"You are appreciated",
+"You’re my safe space",
+"You make life better",
+"You’re like a friend",
+"I’m proud of you",
+"You inspire me",
+"You are loved",
+"You are enough",
+"You are strong",
+"You are amazing",
+"You matter",
+"I love you 💖"
+];
+
+function showReasons(){
+  let box=document.getElementById("reasonBox");
+  box.innerHTML="";
+  let i=0;
+
+  function next(){
+    if(i<reasons.length){
+      let d=document.createElement("div");
+      d.className="reasonCard";
+      d.textContent=reasons[i];
+      box.appendChild(d);
+      setTimeout(()=>d.classList.add("show"),50);
+      i++;
+      setTimeout(next,110);
+    }
+  }
+  next();
+}
+
+/* ENVELOPES */
+const env=[
+"You are never alone 💖",
+"Breathe 🫶",
+"I’m with you 💕",
+"You are strong 💪",
+"You are loved ❤️",
+"You’ve got this 🌈",
+"You are enough 💫",
+"I love you always 💖"
+];
+
+function openEnv(i){
+  let box=document.getElementById("envBox");
+  box.style.display="block";
+  box.innerHTML="<p>"+env[i]+"</p>";
+}
+
+/* CONFETTI */
+function confetti(){
+  for(let i=0;i<50;i++){
+    let c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=["red","blue","yellow","pink","purple"][Math.floor(Math.random()*5)];
+    c.style.animationDuration=(Math.random()*3+2)+"s";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),5000);
+  }
+}
+
+/* BALLOONS */
+function balloons(){
+  for(let i=0;i<10;i++){
+    let b=document.createElement("div");
+    b.className="balloon";
+    b.innerHTML="🎈";
+    b.style.left=Math.random()*100+"vw";
+    b.style.animationDuration=(Math.random()*3+4)+"s";
+    document.body.appendChild(b);
+    setTimeout(()=>b.remove(),7000);
+  }
+}
+
+</script>
+
+</body>
+</html>

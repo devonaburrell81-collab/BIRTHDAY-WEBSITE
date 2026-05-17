@@ -248,24 +248,30 @@ const reasons = [
 ];
 
 function showReasons(){
-  let box=document.getElementById("reasonBox");
-  box.innerHTML="";
-  let i=0;
+  let box = document.getElementById("reasonBox");
+  box.innerHTML = "";
+
+  let i = 0;
 
   function next(){
-    if(i<reasons.length){
-      let d=document.createElement("div")
-  next();;
-      d.className="reasonCard";
-      d.textContent=reasons[i];
-      box.appendChild(d);
-      setTimeout(()=>d.classList.add("show"),50);
-      i++;
-      setTimeout(next,110);
-    }
-  }
-}
+    if(i >= reasons.length) return;
 
+    let div = document.createElement("div");
+    div.innerText = reasons[i];
+    div.style.background = "white";
+    div.style.margin = "10px auto";
+    div.style.padding = "12px";
+    div.style.borderRadius = "10px";
+    div.style.maxWidth = "500px";
+
+    box.appendChild(div);
+
+    i++;
+    setTimeout(next, 120);
+  }
+
+  next();
+}
 /* ENVELOPES */
 const env = [
 "🌧️ Open when you feel sad\nI know things don’t always feel okay, but I need you to remember you’re never alone. I love you so much and I’m always here for you, no matter what.\n\n🙏 “The Lord is close to the brokenhearted.” – Psalm 34:18",
